@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- each key is set to an event key code (keycode.info) and an audio data-key that is set to a sound. It's like an event listener. -->
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+window.addEventListener('keydown', function (e) { //window is element. event is listening for 'keydown'. when it happens, run the function.
+  // console.log(e.keyCode);
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`) //*
+  const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+  // console.log(audio);
+  // if (!audio) return; //stops the fn from running.
+  audio.currentTime = 0; //rewinds it to the start.
+  audio.play(); //if you call this while it's playing (hit the key again before the event is over) it won't play it again b.c it's running. you need audio.currentTime = 0;
+  key.classList.add('playing'); //same as jQuery: key.addClass('playing');
+  //.remove and .toggle are also options
+  // console.log(key);
+
+
+
+  //* select an audio element that has data-key. attribute selector is used with data-key=
+  //es6 template strings are ${}. You can enclose this with the back-ticks instead of '' or "". They can contain placeholders, which is inside of the ${}. They text b.w them get passed to a fn. (MDN)
+
+  //click event: 'someone clicked me'.
+  //transition end event: 'fire when transition ends'
+
+})
+
+
+
+//FUNCTION 2
+
+function removeTransition(e) {
+  console.log(e); //this gives you a lot of info. 6 transition end events pop up. the border colors, box-shadow, and transform.
+  if (e.propertyName !== 'transform') return; //skip if it's not a transform. this comes from you logging out the event. you see propertyName. We picked transform just b.c each event will have a transform property.
+  console.log(e.propertyName );
+  this.classList.remove('playing');
+  //this is equal to the key here.
+}
+
+
+//FUNCTION 3
+
+  const keys = document.querySelectorAll('.key'); //select all the keys with the class key
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  //1. don't use .addEventListener b.c in an array you can't listen to every one of them simultaneously. you need to loop over them. each key gets an eventListener added to it.
+  //2. in the eventListener you are listening for 'transitionend' which is built-in, and run the fn removeTransition
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
