@@ -1,4 +1,18 @@
 
+<!-- JS
+
+In vanilla js you can just put window.addEventListener. In React and node it's different. ex: handleChange = (e) => {}  or handleSubmit = (e) => {}
+
+you also have document.querySelector() and document.querySelectorAll() and you used the .play() method on audio.
+
+Logging out (e) is important b.c then you can do things based on the properties in the event.
+
+Remember return stops the fn.
+
+Lastly, an easy loop in vanilla js is just to say const <variable name> = document.querySelectorAll('.<class>' or '#<id>') then <name>.forEach ...
+
+ -->
+
 
 
 
@@ -11,7 +25,11 @@ transition
 height: 2s,
 width: 4s,
 webkit-transition-delay: 1s; /* Safari */
-transition-delay: 1s;
+transition-delay: 1s,
+transition-duation: 3s, /* how long it takes to transition to final stage but not back down. */
+transition-timing: 2s, /*	Specifies the speed curve of the transition effect */
+
+
 
 transforms move or change the appearance of an element,
 transitions make the element smoothly and gradually change from one state to another.
