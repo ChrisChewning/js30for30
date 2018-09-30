@@ -1,0 +1,37 @@
+HTML
+
+In your html, you have a div and span but then you have 3 of these:
+
+<div class="controls">
+  <label for="spacing">Spacing:</label>
+  <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+
+label for="spacing" = label is your tag that defines a label for an input. Notice how the label and input have the same name. 'The for attribute of the <label> tag should be equal to the id attribute of the related element to bind them together.'
+
+type='range' is the sliding bar.
+
+
+
+CSS
+One of the main points in this lesson was to look at CSS Variables. CSS Variables allow you to dynamically update anything the variable is tied to. Example (remember root is like html)
+
+:root {
+  --spacing: 10px;
+}
+
+img {
+  padding: var(--spacing);
+}
+
+So you access the CSS variable spacing with var(--spacing).
+
+
+JS
+you only had 6 lines of js code.
+
+First, you grabbed all the inputs through document.querySelectorAll and put them in variable named inputs.
+
+Second, you made a handleUpdate function, which set a suffix variable to your dataset element and set a property.
+
+Third, you looped over the inputs and added event listeners ('change' and 'mousemove') and called the handleUpdate function.

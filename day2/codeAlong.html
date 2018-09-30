@@ -71,35 +71,35 @@
       background: black;
       position: absolute;
       top: 50%;
-
     }
 
   </style>
 
   <script>
-  const secondHand = document.querySelector('.second-hand') //points to the html div class.
+    const secondHand = document.querySelector('.second-hand')
     const minHand = document.querySelector('.min-hand');
     const hourHand = document.querySelector('.hour-hand');
 
 
   function setDate(){
     const now = new Date(); //Date is a js object. MDN docs.
-    const seconds = now.getSeconds(); //getMinutes() would get you the current minute
+    const seconds = now.getSeconds();
     const secondsDegrees = ((seconds / 60) * 360) + 90; // 1 / 60 is .016 but x 360 is 6 degrees, which is 1 % of the circle. IMP: + 90 is to offset the .hand  transform: rotate(90deg) we set as a default
     secondHand.style.transform = `rotate(${secondsDegrees}deg)`; //usually it's rotate(100deg) or something like that. However, you want to point at the secondsDegrees variable here so it's tied to that degree. more dynamic.
-
-
-
+console.log(secondsDegrees);
     const mins = now.getMinutes();
     const minsDegrees = ((mins / 60) * 360) + 90;
     minHand.style.transform = `rotate(${minsDegrees}deg)`;
-
     const hour = now.getHours();
-    console.log(hour);
-    const hourDegrees = hour * (360 / 12) + 90;
+    // const hourDegrees = hour * (360 / 12) + 90; //my way.
+    const hourDegrees = ((hour / 12) * 360) + ((mins/60)*30) + 90; //his way.
+
     hourHand.style.transform = `rotate(${hourDegrees}deg)`;
-    console.log(hourDegrees);
-    // hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+
+//fixes stutter when seconds hits 0. Note: can't put it ontside this function.
+    if (secondsDegrees === 90) {
+      secondHand.style.transition = '0.0s';
+    }
   }
 
 setInterval(setDate, 1000);
