@@ -25,9 +25,8 @@
     ];
 
 
-    //ARRAY OF STRINGS
-    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
 
+    //===============================   FILTER  ================================
 
 
     //#1: Array.prototype.filter()
@@ -36,10 +35,11 @@
 
     const filter1 = inventors.filter(function(inventor){
       if(inventor.year >= 1500 && inventor.year < 1600){
-        return inventor.last + ' ,' + inventor.first
-        // return true;
+        // return inventor.last + ' ,' + inventor.first  gives whole object though.
+        return true;
       }
     })
+// console.log(filter1);
 
     //SAMEZIES
 
@@ -48,45 +48,140 @@
       // console.table(filter2); //WHAT!?
 
 
-
+//==================================  MAP ==================================
 
     // Array.prototype.map()
-    // 2. Give us an array of the inventor first and last names
+    //EXPLANATION: Map takes in an array and returns a new array of the same length. Like a machine, that outputs something new for each item.
+    // DIRECTIONS: Give us an array of the inventor first and last names
     const fullNames = inventors.map(inventor => (inventor.first + ' ' + inventor.last))
-    console.log(fullNames);
+    // console.log(fullNames);
 
     //SAMEZIES
 
     const fullNames2 = inventors.map(inventor => `${inventor.first} + ' ' ${inventor.last}`)
-    console.log(fullNames2);
+    // console.log(fullNames2);
+
+
+    //================================  SORT   ================================
 
     // Array.prototype.sort()
-    // 3. Sort the inventors by birthdate, oldest to youngest
+    //EXPLANATION: Sort gets two items. You are asked to sort those two items.
+    //DIRECTIONS: Sort the inventors by birthdate, oldest to youngest
+
+//     const ordered = inventors.sort(function(a, b) {
+//       if (a.year > b.year) {
+//         return 1
+//       } else {
+//         return -1
+//       }
+//     })
+//     // const ordered = inventors.sort(inventor => )
+// console.table(ordered)
 
 
+
+const ordered3 = inventors.sort((a,b) => a.year > b.year ? 1 : -1)
+// console.table(ordered3);
+
+
+//==================================  REDUCE ==================================
 
     // Array.prototype.reduce()
-    // 4. How many years did all the inventors live?
+    //EXPLANATION: Will give you a running total AND in this case an inventor.
+    //DIRECTIONS:
 
+    // 4. How many years did all the inventors live?
+    const totalYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year) //total is the last time around in the loop + each inventors years lived.
+    }, 0) //need the 0 b.c the first time around there's no total and it's equal to undefined.
+
+    console.log(totalYears);
+
+
+
+
+    //================================  SORT   ================================
     // 5. Sort the inventors by years lived
+    const oldest1 = inventors.sort(function(a, b) {
+      const lastGuy = a.passed - a.year;
+      const nextGuy = b.passed - b.year;
+      if (lastGuy > nextGuy) {
+        return -1
+      } else {
+        return 1
+      }
+    })
+    console.log(oldest1);
+
+//SAMEZIES
+
+  const oldest2 = inventors.sort(function(a,b) {
+    const lastGuy = a.passed - a.year;
+    const nextGuy = b.passed - b.year;
+    return lastGuy > nextGuy ? - 1 : 1;
+  })
+  console.table(oldest2);
 
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
     // const category = document.querySelector('.mw-category');
+    //inspect the page. the parent div to the links is div class='mw-category'
+
+
     // const links = Array.from(category.querySelectorAll('a'));
-    // const de = links
-    //             .map(link => link.textContent)
-    //             .filter(streetName => streetName.includes('de'));
+    //Array.from(category...) is b.c you can call querySelector from any existing dom element. you just destructured the 1st div class mw-category into the variable category.
+
+
+    // const de = links.map(link => link.textContent)
+    // .filter(streetName => streetName.includes('Paris'));
+    //.map(link) is loop through links with the map function and return link.textContent, which is part of the data already attached to each link.
+    //then you chain .filter to the variable. So first you return the link.textContent and then you filter over that and see if it includes the name 'Paris'
+
+    //REMEMBER 1: the link paramater and the streetName paramater are your choice. They are not names already in the data.
+
+    //REMEMBER 2: querySelector returns a NodeList. This is why you put Array.from. You could also use [...category.querySelectorAll('a')]
+
+
+
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+
+    //ARRAY OF STRINGS
+    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+
+
+    const alpha = people.sort((lastOne, nextOne) => {
+      // console.log(lastOne); //gives us the names on each line & Beck, Glenn 2x.
+        // const parts = lastOne.split(', '); //converts into a 0 and a 1 for each name. Beck is 0, Glenn is 1
+      // console.log(parts); //now it's in an array. remember comma & space.
+      const [aLast, aFirst] = lastOne.split(', ');
+      const [bLast, bFirst] = nextOne.split(', ');
+      return aLast > bLast ? 1 : -1;
+    })
+    console.log(alpha);
+
+//IMPORTANT: destructures into their own variables instead of just an array. This keeps it as a string. This is the [aLast, aFirst]
+
+
+//HOW TO ALPHABETALIZE BY LAST NAME FROM GOOGLE:
+// http://hubrik.com/2015/11/16/sort-by-last-name-with-javascript/
 
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck', 'pogostick'];
+
+    const transportation = data.reduce((obj, item) => {
+      if(!obj[item]) {
+        obj[item] = 0; //meaning, is there an item entry there to add to. If not, you make an entry for it.
+      }
+      obj[item]++; //then increment on top of that item.
+      return obj;
+    }, {})  //start with a blank object.
+console.log(transportation);
 
 
 
