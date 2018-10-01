@@ -1,0 +1,34 @@
+Filter, Sort, Map, and Reduce all loop over the data.
+
+All four higher-order functions use a callback.
+
+<!--  CALLBACKS-->
+http://javascriptissexy.com/understand-javascript-callback-functions-and-use-them/
+Callback: Derived from a programming paradigm known as functional programming. At a fundamental level, functional programming specifies the use of functions as arguments.
+
+Callback 2: a.k.a. a higher-order function, is a function that is passed to another function as a parameter, and the callback function is called (or executed) inside the main function.
+
+Consider this common use of a callback function in jQuery:
+
+example 1: function() is the callback
+
+$("#btn_1").click(function() {
+  alert("Btn 1 Clicked");
+});
+
+example 2:
+var friends = ["Mike", "Stacy", "Andy", "Rick"];
+
+friends.forEach(function (eachName, index){
+console.log(index + 1 + ". " + eachName); // 1. Mike, 2. Stacy, 3. Andy, 4. Rick
+});
+
+<!-- DIFFERENCES -->
+
+--Filter only outputs what you want.
+
+--Map outputs th ewhole thing, like a machine that changes things. However, when I've used it in React, you can use it just like a loop and map over a ton of data, only outputting what you want.
+
+--Sort needs a compare callback (function(a,b) {}) so you can continually compare one item against another. Defaults to alphabetically.
+
+--Reduce needs a running total (accumulator) and value (value for each item or index)

@@ -27,11 +27,10 @@
 
 
     //===============================   FILTER  ================================
+    //#1: ARRAY.PROTOTYPE.FILTER()
 
-
-    //#1: Array.prototype.filter()
-    //EXPLANATION: Filter gets passed a function that loops over every item in our array.
-    // DIRECTIONS:  Filter the list of inventors for those who were born in the 1500's
+    //--EXPLANATION: Filter gets passed a function that loops over every item in our array.
+    //--DIRECTIONS:  Filter the list of inventors for those who were born in the 1500's
 
     const filter1 = inventors.filter(function(inventor){
       if(inventor.year >= 1500 && inventor.year < 1600){
@@ -49,10 +48,10 @@
 
 
 //==================================  MAP ==================================
+    //#2 ARRAY.PROTOTYPE.MAP()
 
-    // Array.prototype.map()
-    //EXPLANATION: Map takes in an array and returns a new array of the same length. Like a machine, that outputs something new for each item.
-    // DIRECTIONS: Give us an array of the inventor first and last names
+    //--EXPLANATION: Map takes in an array and returns a new array of the same length. Like a machine, that outputs something new for each item.
+    //--DIRECTIONS: Give us an array of the inventor first and last names
     const fullNames = inventors.map(inventor => (inventor.first + ' ' + inventor.last))
     // console.log(fullNames);
 
@@ -68,20 +67,33 @@
     //EXPLANATION: Sort gets two items. You are asked to sort those two items.
     //DIRECTIONS: Sort the inventors by birthdate, oldest to youngest
 
-//     const ordered = inventors.sort(function(a, b) {
-//       if (a.year > b.year) {
-//         return 1
-//       } else {
-//         return -1
-//       }
-//     })
-//     // const ordered = inventors.sort(inventor => )
-// console.table(ordered)
+    const ordered = inventors.sort(function(a, b) { //a,b is to compare.
+      if (a.year > b.year) {
+        return 1 //for lowest to highest return 1 then -1.
+      } else {
+        return -1
+      }
+    })
+    // const ordered = inventors.sort(inventor => )
+console.table(ordered)
 
 
 
 const ordered3 = inventors.sort((a,b) => a.year > b.year ? 1 : -1)
 // console.table(ordered3);
+
+
+
+  //Example #2 for Sort
+
+  numbers = [1, 2, 3, 335, 4]
+
+  const numbersSorted = numbers.sort(function(a, b) {
+    return a - b; //1, 2, 3, 4, 335
+    // return b - a; //335, 4, 3, 2, 1 (not a + b)
+  })
+
+console.log(numbersSorted);
 
 
 //==================================  REDUCE ==================================
@@ -171,18 +183,47 @@ const ordered3 = inventors.sort((a,b) => a.year > b.year ? 1 : -1)
 
 
     // 8. Reduce Exercise
-    // Sum up the instances of each of these
+    //EXPLANATION: Applies a function to each element in the array to reduce the array to a single value.
+    // DIRECTIONS: Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck', 'pogostick'];
 
+//REDUCE NEEDS 4 THINGS:
+
+    //let/const result(single value to return) ex: const transportation.
+    //array(array to run the function on) ex: data.reduce
+    //callback (function to execute on each array element.) ex: ?
+    //initial value = optional. ex: {}. Goes at the end.
+
+    //accumulator. Each value gets added to the accumulator every time the loop goes by. ex: obj
+    //value = it's the value. in this case, item
+
+  //let or const result  = array.reduce(callback, initial value)
     const transportation = data.reduce((obj, item) => {
-      if(!obj[item]) {
-        obj[item] = 0; //meaning, is there an item entry there to add to. If not, you make an entry for it.
+      if(!obj[item]) { //there is no accumulator's[i], which is the value, set it at 0. you make an entry for it.
+        obj[item] = 0;
       }
       obj[item]++; //then increment on top of that item.
       return obj;
-    }, {})  //start with a blank object.
+    }, {})  //start with a blank object. this is our initial value.
 console.log(transportation);
 
+
+//REDUCE PRACTICE #2 (https://codeburst.io/learn-understand-javascripts-reduce-function-b2b0406efbdc)
+//SUM UP EVERY COUNTRY'S POPULATION EXCEPT CHINA
+
+let data2 = [
+  {country: 'China', pop: 1409517397,},
+  {country: 'India', pop: 1339180127,},
+  {country: 'USA', pop: 324459463,},
+  {country: 'Indonesia', pop: 263991379,}
+]
+
+let population = data2.reduce((acc, val) => {
+  return val.country == 'China' ? acc : acc + val.pop;
+  //if country name is China just return the accumulator unchanged. Don't add  anything to it. If it's not China, accumulator + val (your value you loop over).pop. You are looping over each object.
+}, 0);
+
+console.log(population);
 
 
   </script>
