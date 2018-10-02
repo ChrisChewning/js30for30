@@ -1,0 +1,55 @@
+FLEXBOX
+Usual flexbox, I've learned is:
+
+display: flex;
+flex-direction: column or row or row-reverse
+justify-content: flex-start, flex-end, etc.
+align-items: center;
+
+Now we've added the flex key in a child container and put 1 as a value. This
+means evenly distribute the space.
+
+example:
+
+.panel {
+  flex: 1; //if it's 5 it's 5x the width so you don't need to set a width property.
+}
+
+
+CSS SELECTORS
+with selectors * is all  and :first-child or :last-child etc. You do not put spaces in b.w though.
+
+.panel.open-active > *:first-child {
+  transform: translateY(0);
+}
+
+
+EVENT LISTENERS
+
+We used the 'click' and 'transitionend' listeners. They need to be in ''. Then the 2nd parameter is a function.
+
+
+CLASSES
+
+<!-- First, we selected everything with the class panel & destructured it into the variable panels. -->
+
+const panels = document.querySelectorAll('.panel');
+
+
+<!-- We looped over them, attaching an event listener & a fn.: -->
+panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+
+<!-- we made functions. important: nowhere in the CSS is just 'open' or 'open-active.' Instead, you have panel.open.  -->
+
+
+function toggleOpen(){ //initial open
+  console.log('hi');
+  this.classList.toggle('open')
+}
+
+function toggleActive(e){
+  console.log(e.propertyName);
+  if (e.propertyName.includes('flex')) {
+    this.classList.toggle('open-active'); //points to .panel.open-active ?
+  }
+}
