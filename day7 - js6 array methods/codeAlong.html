@@ -71,14 +71,41 @@ console.log({isAdult}); //gives you the object.
     // Find is like filter, but instead returns just the one you are looking for
     // find the comment with the ID of 823423
 
+    const comment = comments.find(function(comm) {
+      if (comm.id === 823423) {
+        return true;
+      }
+    })
+console.log(comment);
+
+//ARROW (implicit return)
+
+  const comment2 = comments.find(comm => comm.id === 823423);
+
+  console.log(comment2);
 
 
-
-
-
+  //======================  .FINDINDEX()  ==============//
     // Array.prototype.findIndex()
     // Find the comment with this ID
     // delete the comment with the ID of 823423
+
+    const index = comments.findIndex(comm => comm.id === 823423)
+    console.log(index);
+
+    //delete
+    comments.splice(index, 1) //start at the variable index and go 1.
+    console.table(comments)
+
+
+    const newComments = [
+      ...comments.slice(0, index), //start at 0 and go until the index.
+      ...comments.slice(index + 1) //start at the index + 1 and go to the end.
+    ]
+    //popular in the redux world.
+console.log(newComments);
+
+
 
   </script>
 </body>
