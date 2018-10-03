@@ -27,6 +27,13 @@ fetch(endpoint)
   //spread operator spreads into the push method. There is no nested data.
 console.log(cities);
 
+//ALTERNATIVE WAY
+// let cities = []; //let is able to be changed.
+// fetch(endpoint)
+//   .then(blob => blob.json())
+//   .then(data => cities = data)
+//
+
 
 //FUNCTION: Take this massive array & filter through it.
 
@@ -77,30 +84,6 @@ const suggestions = document.querySelector('.suggestions') //selects the ul clas
 
 searchInput.addEventListener('change', displayMatches); //change event only fires when you go off the input and click somewhere else on the screen.
 searchInput.addEventListener('keyup', displayMatches); //onChange add event listener.
-
-
-
-
-
-
-
-//ALTERNATIVE WAY: just say
-// let cities = [];
-// fetch(endpoint)
-//   .then(blob => blob.json())
-//   .then(data => cities = data)
-//
-// console.log(cities); //doesn't show up here but you can log it from the actual console.
-
-//this would be just a promise, meaning something will come back from this fetch.
-// const data = fetch(endpoint);
-//   console.log(data);
-
-//this would be a callback:
-// fetch(endpoint, function(data) {
-//   console.log(data);
-// })
-
 
 
 </script>

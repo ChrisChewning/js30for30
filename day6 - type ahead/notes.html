@@ -1,3 +1,53 @@
 STEP 1: Data comes in from an external source. We named it const endpoint. It's in .json file.
 
-STEP 2: Fetch the data. This is a browser built in api.  $.getJSON()
+STEP 2: Fetch the data. This is a browser built in api.
+  in jQuery you could say $.getJSON()
+
+You have to convert the data even if it's already in .json.
+
+
+*****IMPORTANT*****
+
+
+//PROMISE: Something will come back from the fetch.
+// const data = fetch(endpoint);
+//   console.log(data);
+
+//CALLBACK:
+// fetch(endpoint, function(data) {
+//   console.log(data);
+// })
+
+However, fetch is a built in api so you don't have to use a callback.
+
+
+Okay, so this one was great and used a lot of higher order functions and thinking.
+
+A few things to remember...
+
+1. these came from inspecting elements in the console. you destructured them into a variable so you could do stuff.
+
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+2. then you don't need to run a function like function displayMatches(){}, just add a method on the end of them.
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
+
+we needed the 'keyup' b.c change only happened when you clicked somewhere else on the screen. You needed it more dynamically then this.
+
+
+3. const regex = new RegExp('gi') global search so it doesn't stop after the first case. and case insensitive so uppercase doesn't throw it off.
+
+4. .join() goes back to a string.
+
+5. .push makes an instance of each thing you push. It's its own argument in the array.
+
+  let nums = ['0'];
+  let numsPush = ['1', '2'];
+
+  nums.push(numsPush) //['0', '1', '2']
+  nums.push(...numsPush) //['0', ['1', '2']];
+
+  Basically, push makes an instance of each one.
+  Spread makes one instance. This is helpful if you're taking external data & putting into an empty array you want to to map, filter, reduce, etc. over.
