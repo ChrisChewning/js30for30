@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+<script>
+
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+const cities = [];
+
+fetch(endpoint)
+  .then(blob => blob.json()) //even if its .json (const endpoint) you have to convert from raw data into json.
+  .then(data => cities.push(...data));
+  // ^ if you j/ do (data) it will be nested data. This is b.c push makes every argument its own item in the array.
+  //spread operator spreads into the push method. There is no nested data.
+console.log(cities);
+
+
+//FUNCTION: Take this massive array & filter through it.
+
+function findMatches(wordToMatch, cities) { //cities array.
+  return cities.filter(place => { //return the cities array but filtered. each one will have a place. From that we need to figure out if the city or state matches the search.
+    const regex = new RegExp(wordToMatch, 'gi'); //g = global i = case-ins.
+    return place.city.match(regex) || place.state.match(regex)
+    //place.city is in the logged out data.
+    //need to figure out of the city or state matches what's searched.
+    //this logs out our object
+  })
+}
+
+
+//FUNCTION: Put commas in numbers
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+
+
+//FUNCTION: Display (this.value is whatever the person is searching)
+
+function displayMatches() {
+  // console.log(this.value);
+  const matchArray = findMatches(this.value, cities);
+  // console.log(matchArray);
+  const html = matchArray.map(place => { //loop over the data.
+    const regex = new RegExp(this.value, 'gi'); //search for it globally.
+    const cityName = place.city.replace(regex, `<span class='hl'>${this.value}</span>`); //whatever it matches with
+  //^before you return it, create a regex to match the city name.
+
+  const stateName = place.state.replace(regex, `<span class='hl'>${this.value}</span>`);
+
+    return `
+    <li>
+    <span class = 'name'> ${cityName}, ${stateName} </span>
+    <span class = 'population'>${numberWithCommas(place.population)}</span>
+
+    </li>
+    `;
+  }).join(''); //map will return an array. .join converts it to a string.
+  suggestions.innerHTML = html; //OK so suggestions is the <ul></ul> DOM node. You made that DOM node a js variable below. Now, what you do is you append the .innerHTML property, which allows you to manipulate a website being displayed. Stack Overflow: 'The innerHTML property is used to get or set the HTML content of an element node.''
+}
+
+const searchInput = document.querySelector('.search'); //comes from the search box. if you select the search element in your console you can say it has a class of search.
+const suggestions = document.querySelector('.suggestions') //selects the ul class suggestions.
+
+searchInput.addEventListener('change', displayMatches); //change event only fires when you go off the input and click somewhere else on the screen.
+searchInput.addEventListener('keyup', displayMatches); //onChange add event listener.
+
+
+
+
+
+
+
+//ALTERNATIVE WAY: just say
+// let cities = [];
+// fetch(endpoint)
+//   .then(blob => blob.json())
+//   .then(data => cities = data)
+//
+// console.log(cities); //doesn't show up here but you can log it from the actual console.
+
+//this would be just a promise, meaning something will come back from this fetch.
+// const data = fetch(endpoint);
+//   console.log(data);
+
+//this would be a callback:
+// fetch(endpoint, function(data) {
+//   console.log(data);
+// })
+
+
+
+</script>
+  </body>
+</html>
